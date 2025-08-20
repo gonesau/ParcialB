@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestor de Proyectos en Equipo</title>
+  <link rel="stylesheet" href="./css/styles.css"/>
+  <!-- Libs -->
+  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+  <!-- App JS -->
+  <script defer src="./js/main.js"></script>
+  <script defer src="./js/auth.js"></script>
+  <script defer src="./js/proyectos.js"></script>
+  <script defer src="./js/equipo.js"></script>
+  <script defer src="./js/estadisticas.js"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">Gestor de Proyectos</div>
+    <nav>
+      <button class="tab-btn active" data-tab="proyectos">Proyectos</button>
+      <button class="tab-btn" data-tab="equipo">Equipo</button>
+      <button class="tab-btn" data-tab="estadisticas">Estadísticas</button>
+    </nav>
+    <div class="aside-actions">
+      <button id="resetAppBtn" class="btn btn-danger">Reiniciar datos</button>
+      <button id="logoutBtn" class="btn btn-ghost">Cerrar sesión</button>
+      <button id="cycleThemeBtn" class="btn btn-ghost">Tema</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="header">
+      <h1>Gestor de Proyectos en Equipo</h1>
+      <input id="searchProject" type="search" class="search" placeholder="Buscar por nombre o responsable..."/>
+    </header>
+
+    <!-- Sección Proyectos -->
+    <section id="tab-proyectos" class="tab-section visible">
+      <div class="card">
+        <h2>Crear proyecto</h2>
+        <form id="projectForm" class="grid-2 form">
+          <div>
+            <label>Nombre</label>
+            <input id="pName" required/>
+          </div>
+          <div>
+            <label>Fecha límite</label>
+            <input id="pDeadline" type="date" required/>
+          </div>
+          <div class="full">
+            <label>Descripción</label>
+            <textarea id="pDesc" rows="2"></textarea>
+          </div>
+          <div>
+            <label>Prioridad</label>
+            <select id="pPriority">
+              <option>Alta</option><option>Media</option><option>Baja</option>
+            </select>
+          </div>
+          <div>
+            <label>Responsable</label>
+            <select id="pOwner" required></select>
+          </div>
+          <div class="full">
+            <button class="btn btn-primary" type="submit">Crear Proyecto</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Proyectos activos</h2>
+        <div id="projectsList" class="list"></div>
+      </div>
+
+      <div class="card" id="projectDetails" hidden>
+        <div class="details-header">
+          <h2 id="pdTitle">Detalles del proyecto</h2>
+          <div class="actions">
+            <button id="exportJsonBtn" class="btn btn-ghost">Exportar tareas</button>
+            <label class="switch">
+              <input type="checkbox" id="boardModeToggle">
+              <span>Board por prioridad</span>
+            </label>
+          </div>
+        </div>
+
+        <form id="taskForm" class="grid-3 form">
+          <div>
+            <label>Tarea</label>
+            <input id="tTitle" required/>
+          </div>
+          <div>
+            <label>Asignado a</label>
+            <select id="tAssignee" required></select>
+          </div>
+          <div>
+            <label>Fecha límite</label>
+            <input id="tDue" type="date" required/>
+          </div>
+          <div>
+            <label>Estado</label>
+            <select id="tStatus">
+              <option>Pendiente</option><option>En Progreso</option><option>Completada</option>
+            </select>
+          </div>
+          <div>
+            <label>Etiqueta</label>
+            <input id="tLabel" placeholder="Desarrollo, Diseño, ..."/>
+          </div>
+          <div>
+            <label>Prioridad</label>
+            <select id="tPriority">
+              <option>Alta</option><option>Media</option><option>Baja</option>
+            </select>
+          </div>
+          <div class="full"><button class="btn btn-primary">Agregar tarea</button></div>
+        </form>
+
+        <div class="filters">
+          <select id="fStatus"><option value="">Estado (todos)</option><option>Pendiente</option><option>En Progreso</option><option>Completada</option></select>
+          <select id="fPriority"><option value="">Prioridad (todas)</option><option>Alta</option><option>Media</option><option>Baja</option></select>
+          <select id="fAssignee"><option value="">Asignado (todos)</option></select>
+          <button id="clearFilters" class="btn btn-ghost">Limpiar filtros</button>
+        </div>
+
+        <div id="kanban" class="kanban">
+          <!-- columnas por estado o prioridad (según toggle) -->
+          <div class="column" data-col="Pendiente"><h3>Pendiente</h3><div class="dropzone" data-accept="Pendiente"></div></div>
+          <div class="column" data-col="En Progreso"><h3>En Progreso</h3><div class="dropzone" data-accept="En Progreso"></div></div>
+          <div class="column" data-col="Completada"><h3>Completada</h3><div class="dropzone" data-accept="Completada"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Equipo -->
+    <section id="tab-equipo" class="tab-section">
+      <div class="card">
+        <h2>Agregar miembro</h2>
+        <form id="memberForm" class="grid-3 form">
+          <div>
+            <label>Nombre</label>
+            <input id="mName" required/>
+          </div>
+          <div>
+            <label>Rol</label>
+            <input id="mRole" required/>
+          </div>
+          <div>
+            <label>Correo</label>
+            <input id="mEmail" type="email" required/>
+          </div>
+          <div class="full"><button class="btn btn-primary">Agregar</button></div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Miembros</h2>
+        <div id="membersList" class="grid-3"></div>
+      </div>
+    </section>
+
+    <!-- Sección Estadísticas -->
+    <section id="tab-estadisticas" class="tab-section">
+      <div class="card"><h2>Tareas completadas vs pendientes</h2><canvas id="chartDone"></canvas></div>
+      <div class="card"><h2>Distribución por prioridad (tareas)</h2><canvas id="chartPriority"></canvas></div>
+      <div class="card"><h2>Progreso por miembro</h2><canvas id="chartMembers"></canvas></div>
+      <div class="card"><h2>Proyectos por prioridad</h2><canvas id="chartProjects"></canvas></div>
+    </section>
+  </main>
+
+  <button class="mobile-toggle" id="mobileToggle">☰</button>
+
+  <div id="spinner" class="spinner hidden"></div>
+</body>
+</html>

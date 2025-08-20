@@ -1,0 +1,199 @@
+{
+  "roles": [
+    {
+      "id": 1,
+      "name": "admin"
+    },
+    {
+      "id": 2,
+      "name": "member"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin",
+      "email": "admin@demo.com",
+      "password": "admin123",
+      "roleId": 1
+    },
+    {
+      "id": 2,
+      "name": "Esaú González",
+      "email": "maria@demo.com",
+      "password": "123456",
+      "roleId": 2
+    }
+  ],
+  "members": [
+    {
+      "id": 1,
+      "name": "Omar Fuentes",
+      "role": "Front-end",
+      "email": "maria@demo.com"
+    },
+    {
+      "id": 2,
+      "name": "Rodolfo Vargas",
+      "role": "Back-end",
+      "email": "carlos@demo.com"
+    },
+    {
+      "id": 3,
+      "name": "Fabio Cerritos",
+      "role": "QA",
+      "email": "ana@demo.com"
+    },
+    {
+      "name": "Cesar Cerón",
+      "role": "Tester",
+      "email": "mail@mail.com",
+      "id": 4
+    },
+    {
+      "name": "Andrea Durán",
+      "role": "UI/UX",
+      "email": "andrea@mail.com",
+      "id": 5
+    },
+    {
+      "name": "Kevin González",
+      "role": "Cliente",
+      "email": "kevin@mail.com",
+      "id": 6
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Lanzamiento Landing",
+      "description": "Landing MVP marketing",
+      "deadline": "2025-08-31",
+      "priority": "Alta",
+      "responsibleId": 1,
+      "createdAt": "2025-08-20T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "name": "App Móvil Cliente",
+      "description": "App iOS/Android clientes",
+      "deadline": "2025-09-15",
+      "priority": "Media",
+      "responsibleId": 2,
+      "createdAt": "2025-08-19T15:00:00Z"
+    },
+    {
+      "name": "Ecommerce",
+      "description": "Proyecto Web para el ciclo 2 | 2025",
+      "deadline": "2025-09-30",
+      "priority": "Media",
+      "responsibleId": 4,
+      "createdAt": "2025-08-20T16:33:24.320Z",
+      "id": 3
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "projectId": 1,
+      "title": "Diseño hero section",
+      "assigneeId": 1,
+      "dueDate": "2025-08-25",
+      "status": "En Progreso",
+      "label": "Diseño",
+      "priority": "Alta",
+      "completed": false,
+      "subtasks": [
+        {
+          "id": 101,
+          "title": "Wireframe",
+          "done": true
+        },
+        {
+          "id": 102,
+          "title": "Mockup Figma",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "projectId": 1,
+      "title": "Copy y SEO",
+      "assigneeId": 3,
+      "dueDate": "2025-08-26",
+      "status": "Pendiente",
+      "label": "Documentación",
+      "priority": "Media",
+      "completed": false,
+      "subtasks": []
+    },
+    {
+      "id": 3,
+      "projectId": 2,
+      "title": "API de autenticación",
+      "assigneeId": 2,
+      "dueDate": "2025-09-05",
+      "status": "En Progreso",
+      "label": "Desarrollo",
+      "priority": "Alta",
+      "completed": false,
+      "subtasks": [
+        {
+          "id": 103,
+          "title": "Endpoints login",
+          "done": true
+        },
+        {
+          "id": 104,
+          "title": "Refresh tokens",
+          "done": false
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "projectId": 2,
+      "title": "Pruebas E2E",
+      "assigneeId": 3,
+      "dueDate": "2025-09-12",
+      "status": "Pendiente",
+      "label": "QA",
+      "priority": "Baja",
+      "completed": false,
+      "subtasks": []
+    },
+    {
+      "projectId": 3,
+      "title": "Diagramas UML",
+      "assigneeId": 3,
+      "dueDate": "2025-08-28",
+      "status": "Completada",
+      "label": "Diseño",
+      "priority": "Media",
+      "completed": true,
+      "subtasks": [],
+      "id": 5
+    },
+    {
+      "projectId": 3,
+      "title": "Testear",
+      "assigneeId": 4,
+      "dueDate": "2025-08-22",
+      "status": "En Progreso",
+      "label": "Test",
+      "priority": "Alta",
+      "completed": false,
+      "subtasks": [],
+      "id": 6
+    }
+  ],
+  "settings": {
+    "themes": [
+      "light",
+      "dark",
+      "blue"
+    ],
+    "filters": {}
+  }
+}

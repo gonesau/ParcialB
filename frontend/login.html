@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Gestor de Proyectos</title>
+  <link rel="stylesheet" href="./css/styles.css"/>
+  <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script defer src="./js/auth.js"></script>
+</head>
+<body class="login-body">
+  <div class="login-card fade-in">
+    <h1>Gestor de Proyectos en Equipo</h1>
+    <p class="subtitle">Inicia sesión para entrar al tablero</p>
+    <form id="loginForm" class="form">
+      <label>Email</label>
+      <input id="email" type="email" placeholder="tucorreo@demo.com" required />
+      <label>Contraseña</label>
+      <input id="password" type="password" placeholder="********" required />
+      <button type="submit" class="btn btn-primary">Entrar</button>
+    </form>
+    <div class="hint">
+      <strong>Made by Omar Fuentes | FG100222 </strong> 
+    </div>
+    <div class="theme-switcher">
+      <button id="cycleThemeBtn" class="btn btn-ghost">Cambiar tema</button>
+    </div>
+  </div>
+  <div id="spinner" class="spinner hidden"></div>
+  <script>
+    document.getElementById('cycleThemeBtn').addEventListener('click', () => {
+      const themes = ['light','dark','blue'];
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme') || 'light';
+      const next = themes[(themes.indexOf(current)+1)%themes.length];
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+    });
+    // Restaurar tema
+    (function(){
+      const t = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+</body>
+</html>
